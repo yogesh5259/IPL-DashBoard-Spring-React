@@ -1,6 +1,7 @@
 package com.springboot.project.ipldashbord.controller;
 
 import com.springboot.project.ipldashbord.model.Team;
+import com.springboot.project.ipldashbord.repository.MatchRepository;
 import com.springboot.project.ipldashbord.repository.TeamRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,16 +13,21 @@ public class TeamController {
 
     private TeamRepository teamRepository;
 
-    public TeamController() {
-    }
+    private MatchRepository matchRepository;
 
-    public TeamController(TeamRepository teamRepository) {
+
+
+    public TeamController(TeamRepository teamRepository, MatchRepository matchRepository) {
         this.teamRepository = teamRepository;
+        this.matchRepository = matchRepository;
     }
 
     @GetMapping("/team/{teamName}")
     public Team getTeam(@PathVariable String teamName) {
-        return teamRepository.findByTeamName(teamName);
+        Team team = this.teamRepository.findByTeamName(teamName);
+        team.setMatches(this.matchRepository.getByTeam1orTeam2(teamName, teamName));
+
+        return team;
     }
 
 }

@@ -1,9 +1,12 @@
 package com.springboot.project.ipldashbord.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Team {
@@ -15,6 +18,8 @@ public class Team {
     private long totalMatches;
     private long totalwins;
 
+    @Transient
+    private List<Match> matches;
     
 
     public Team() {
@@ -46,6 +51,13 @@ public class Team {
     }
     public void setTotalwins(long totalwins) {
         this.totalwins = totalwins;
+    }
+    
+    public List<Match> getMatches() {
+        return matches;
+    }
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
     }
     @Override
     public String toString() {
