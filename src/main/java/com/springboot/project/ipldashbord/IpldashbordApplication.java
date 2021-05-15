@@ -8,6 +8,6 @@ public class IpldashbordApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(IpldashbordApplication.class, args);
-	}
+	} 
 
 }
